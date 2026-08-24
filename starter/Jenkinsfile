@@ -18,7 +18,10 @@ pipeline {
         }
         stage('Build Image') {
             steps {
-                sh 'docker build -f starter/Dockerfile -t team-skeleton starter'
+                dir('starter') {
+                    sh 'test -f target/team-skeleton-0.1.0.jar'
+                    sh 'docker build -t team-skeleton .'
+                }
             }
         }
         stage('Smoke Test') {
